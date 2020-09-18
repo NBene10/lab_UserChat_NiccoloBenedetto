@@ -48,7 +48,7 @@ void ChatRoom::readMessage(const int index) {
             this->notifyAll();
         }
     } else {
-        throw std::out_of_range("ERROR: message isn't present in the charoom");
+        throw std::out_of_range("ERROR: message isn't present in the chatroom");
     }
 }
 

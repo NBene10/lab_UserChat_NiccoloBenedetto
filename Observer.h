@@ -8,7 +8,7 @@
 
 class Observer {
 public:
-    virtual ~Observer() {};
+    virtual ~Observer() = default;
 
     virtual void attach() = 0;
 

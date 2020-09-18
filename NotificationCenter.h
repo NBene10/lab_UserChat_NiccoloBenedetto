@@ -11,7 +11,7 @@
 class NotificationCenter : public Observer {
 public:
 
-    virtual ~NotificationCenter() {};
+    virtual ~NotificationCenter() = default;
 
     explicit NotificationCenter(bool notif, std::shared_ptr<ChatRoom> sub);
 

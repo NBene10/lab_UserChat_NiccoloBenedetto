@@ -18,7 +18,7 @@ class User;
 
 class ChatRoom : public Subject {
 public:
-    virtual ~ChatRoom() {};
+    virtual ~ChatRoom() = default;
 
     explicit ChatRoom(const User &user1, const User &user2);
 

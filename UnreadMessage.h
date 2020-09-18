@@ -11,7 +11,7 @@ public:
 
     explicit UnreadMessage(std::shared_ptr<ChatRoom> subj) : subject(subj) {}
 
-    virtual ~UnreadMessage() {};
+    virtual ~UnreadMessage() = default;
 
     virtual void attach() override;
 

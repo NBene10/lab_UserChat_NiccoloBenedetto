@@ -26,11 +26,40 @@ int main() {
     shptr->attachMessage(msg3);
     shptr->attachMessage(msg4);
 
-    shptr->readMessage(0);
-    shptr->readMessage(2);
+    try {
+        shptr->readMessage(0);
+        shptr->readMessage(2);
+        shptr->readMessage(5); //EXCEPTION
+    } catch (std::out_of_range &e) {
+        std::cerr << "Out of range error:" << e.what() << std::endl;
+    }
+
+
+    std::cout << std::endl;
+    std::cout << "-----------------------------------------------" << std::endl;
+    std::cout << "[Test adding, counting and reading messages]" << std::endl;
+    std::cout << std::endl;
+
+    for (int i = 0; i < 5; i++) {
+        Message mex("Nick", "Peter", "This is one message to read");
+        shptr->attachMessage(mex);
+    }
+
+    int mexToRead = 5;
+    std::cout << "--> Peter has to read other " << mexToRead << " messages" << std::endl;
+
+    for (int i = 0; i < 2; i++) {
+        try {
+            shptr->readMessage(i + 4);
+            mexToRead--;
+        } catch (std::out_of_range &e) {
+            std::cerr << "Out of range error:" << e.what() << std::endl;
+        }
+    }
+
+    std::cout << "Peter has to read " << mexToRead << " messages" << std::endl;
 
     nick.removeChat(peter);
-
 
     return 0;
 }

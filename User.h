@@ -14,7 +14,7 @@ class ChatRoom;
 class User {
 public:
 
-    ~User() {};
+    ~User() = default;
 
     explicit User(const std::string &name) : username(name) {};
 
