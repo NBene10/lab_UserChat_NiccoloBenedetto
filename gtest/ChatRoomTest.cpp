@@ -24,6 +24,6 @@ TEST(Chat, functions) {
     Message mex("Peter", "Nick", "Hi Nick, what's up?");
     chat.attachMessage(mex);
     ASSERT_EQ(chat.lastMessage(), mex);
-    ASSERT_THROW(chat.readMessage(2), std::out_of_range);
     ASSERT_THROW(chat.readMessage(1), std::out_of_range);
+    ASSERT_THROW(chat.readMessage(2), std::out_of_range);
 }

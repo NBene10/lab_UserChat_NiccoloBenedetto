@@ -30,6 +30,7 @@ public:
 private:
     bool notification;
     std::shared_ptr<ChatRoom> subject;
+    std::vector<Message> mexAlreadyNotif;
 };
 
 #endif //LAB_NOTIFICATIONCENTER_H

@@ -21,8 +21,21 @@ void NotificationCenter::detach() {
 }
 
 void NotificationCenter::update() {
+    bool messageNotified = false;
     if (notification) {
-        plot(subject->lastMessage());
+        if (mexAlreadyNotif.empty()) {
+            plot(subject->lastMessage());
+            messageNotified = true;
+        } else {
+            for (auto itr : mexAlreadyNotif) {
+                if (itr == subject->lastMessage()) {
+                    messageNotified = true;
+                }
+            }
+        }
+        if (!mexAlreadyNotif.empty() && !messageNotified) {
+            plot(subject->lastMessage());
+        }
     }
 }
 
@@ -31,10 +44,12 @@ void NotificationCenter::plot(const Message &msg) {
     char buff[100];
     struct tm *localTime = localtime(&time);
     strftime(buff, 100, "%I:%M%p", localTime);
-    std::cout << "[NOTIFICATION MESSAGE] " << std::endl;
+    std::cout << "[MESSAGE NOTIFICATION] " << std::endl;
     std::cout << "[Last message sent at " << buff << " ]" << " - [Sender] --> " << msg.getSender()
-              << " [Receiver] --> " << msg.getReceiver() << " (You)" << std::endl;
-    std::cout << "[Testo]: " << msg.getTextMsg() << std::endl;
+              << " [Receiver] --> " << msg.getReceiver() << std::endl;
+    std::cout << "[Text]: '" << msg.getTextMsg() << "'" << std::endl;
+    mexAlreadyNotif.push_back(msg);
+    //std::cout << std::endl;
 }
 
 bool NotificationCenter::isNotification() const {

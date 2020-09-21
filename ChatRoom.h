@@ -48,10 +48,11 @@ public:
 
 
 private:
-    std::string firstUser_name; //utente che apre la chat
-    std::string secondUser_name; //utente ricevitore della chat
+    std::string firstUser_name;
+    std::string secondUser_name;
     std::vector<Message> messages;
     std::list<std::shared_ptr<Observer>> observers;
+
 };
 
 

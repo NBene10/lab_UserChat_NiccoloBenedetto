@@ -20,7 +20,9 @@ void UnreadMessage::update() {
 }
 
 void UnreadMessage::plot(int unreadMessages) {
-    std::cout << "[There are " << unreadMessages << " unread messages]" << std::endl;
+    std::cout << "[There are " << unreadMessages << " unread messages for " << subject->getFirstUserName() <<
+              "]" << std::endl;
+    std::cout << std::endl;
 }
 
 

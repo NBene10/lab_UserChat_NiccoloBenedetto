@@ -27,6 +27,7 @@ void ChatRoom::notifyAll() {
 bool ChatRoom::verifyUsersMsg(std::string sender, std::string receiver) {
     return ((firstUser_name == sender || firstUser_name == receiver) && (secondUser_name == sender ||
                                                                          secondUser_name == receiver));
+
 }
 
 void ChatRoom::attachMessage(const Message &newMsg) {
@@ -41,9 +42,10 @@ void ChatRoom::attachMessage(const Message &newMsg) {
 void ChatRoom::readMessage(const int index) {
     if (index >= 0 && index < messages.size()) {
         if (messages[index].getSender() == secondUser_name) {
+            std::cout << messages[index].getReceiver() << " now is reading the following message: " << std::endl;
             std::cout << "[Sender] --> " << messages[index].getSender() << " - " << "[Receiver] --> " <<
                       messages[index].getReceiver() << std::endl;
-            std::cout << "Text Message: " << messages[index].getTextMsg() << std::endl;
+            std::cout << "Text Message: '" << messages[index].getTextMsg() << "'" << std::endl;
             messages[index].setRead(true);
             this->notifyAll();
         }

@@ -28,8 +28,6 @@ public:
 
     std::shared_ptr<ChatRoom> createChat(User &user);
 
-    std::shared_ptr<ChatRoom> detectChat(const User &user);
-
     void addChat(std::shared_ptr<ChatRoom> chat, User &user);
 
     void removeChat(const User &user);
