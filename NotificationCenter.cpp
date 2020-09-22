@@ -5,8 +5,7 @@
 #include <iostream>
 #include "NotificationCenter.h"
 
-NotificationCenter::NotificationCenter(bool notif, std::shared_ptr<ChatRoom> sub) : notification(notif),
-                                                                                    subject(sub) {
+NotificationCenter::NotificationCenter(std::shared_ptr<ChatRoom> sub) : subject(sub) {
 
 }
 
@@ -22,21 +21,23 @@ void NotificationCenter::detach() {
 
 void NotificationCenter::update() {
     bool messageNotified = false;
-    if (notification) {
-        if (mexAlreadyNotif.empty()) {
-            plot(subject->lastMessage());
-            messageNotified = true;
-        } else {
-            for (auto itr : mexAlreadyNotif) {
-                if (itr == subject->lastMessage()) {
-                    messageNotified = true;
-                }
+    if (mexAlreadyNotif.empty()) {
+        subject->setNotificationChat(true);
+        plot(subject->lastMessage());
+        messageNotified = true;
+    } else {
+        for (auto itr : mexAlreadyNotif) {
+            if (itr == subject->lastMessage()) {
+                messageNotified = true; //messaggio già notificato
+                subject->setNotificationChat(false);//non c'è bisogno di lanciare una notifica
             }
         }
-        if (!mexAlreadyNotif.empty() && !messageNotified) {
-            plot(subject->lastMessage());
-        }
     }
+    if (!mexAlreadyNotif.empty() && !messageNotified) {
+        subject->setNotificationChat(true);
+        plot(subject->lastMessage());
+    }
+
 }
 
 void NotificationCenter::plot(const Message &msg) {
@@ -56,7 +57,4 @@ bool NotificationCenter::isNotification() const {
     return notification;
 }
 
-void NotificationCenter::setNotification(bool notification) {
-    NotificationCenter::notification = notification;
-}
 

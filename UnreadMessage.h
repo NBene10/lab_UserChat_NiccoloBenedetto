@@ -21,6 +21,8 @@ public:
 
     void plot(int unreadMessage);
 
+    bool isUnreadMessage() const;
+
 private:
     std::shared_ptr<ChatRoom> subject;
 

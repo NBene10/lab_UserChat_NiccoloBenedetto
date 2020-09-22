@@ -46,11 +46,15 @@ public:
 
     void setSecondUserName(const std::string &secondUserName);
 
+    bool isNotificationChat() const;
+
+    void setNotificationChat(bool notificationChat);
 
 private:
     std::string firstUser_name;
     std::string secondUser_name;
     std::vector<Message> messages;
+    bool notificationChat;
     std::list<std::shared_ptr<Observer>> observers;
 
 };

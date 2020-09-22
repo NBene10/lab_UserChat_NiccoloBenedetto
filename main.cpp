@@ -7,23 +7,28 @@
 int main() {
     User nick("Nick");
     User peter("Peter");
-    std::shared_ptr<ChatRoom> shptr = nick.createChat(peter); //nick crea una chat con peter
+    std::shared_ptr<ChatRoom> shptr = nick.createChat(peter);
 
     Message msg1("Nick", "Peter", "Hey Peter what's up?");
     Message msg2("Peter", "Nick", "Hi Nick, I'm fine!");
     Message msg3("Nick", "Peter", "Well, did you pass the programming test?");
     Message msg4("Peter", "Nick", "Yeah, finally. Now I'm so happy.");
 
-    NotificationCenter notifier(true, shptr);
+    NotificationCenter notifier(shptr);
     UnreadMessage unreadNotification(shptr);
 
     notifier.attach();
     unreadNotification.attach();
 
-    shptr->attachMessage(msg1);
-    shptr->attachMessage(msg2);
-    shptr->attachMessage(msg3);
-    shptr->attachMessage(msg4);
+    try {
+        shptr->attachMessage(msg1);
+        shptr->attachMessage(msg2);
+        shptr->attachMessage(msg3);
+        shptr->attachMessage(msg4);
+    } catch (std::out_of_range &e) {
+        std::cerr << "User error:" << e.what() << std::endl;
+    }
+
 
     try {
         shptr->readMessage(1);
@@ -32,6 +37,7 @@ int main() {
     } catch (std::out_of_range &e) {
         std::cerr << "Out of range error:" << e.what() << std::endl;
     }
+
 
     nick.removeChat(peter);
 

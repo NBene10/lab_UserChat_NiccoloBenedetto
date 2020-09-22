@@ -25,4 +25,12 @@ void UnreadMessage::plot(int unreadMessages) {
     std::cout << std::endl;
 }
 
+bool UnreadMessage::isUnreadMessage() const {
+    if (subject->getUnreadMessages() > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 

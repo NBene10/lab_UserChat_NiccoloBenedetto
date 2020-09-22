@@ -8,6 +8,7 @@
 
 User nick("Nick");
 User peter("Peter");
+User mitch("Mitch");
 
 TEST(Chat, GetterSetter) {
     ChatRoom chat(nick, peter);
@@ -22,8 +23,12 @@ TEST(Chat, GetterSetter) {
 TEST(Chat, functions) {
     ChatRoom chat(nick, peter);
     Message mex("Peter", "Nick", "Hi Nick, what's up?");
+    Message mexError("Mitch", "Nick", "Hi Nick, what's up?");
     chat.attachMessage(mex);
+    ASSERT_THROW(chat.attachMessage(mexError), std::out_of_range);
     ASSERT_EQ(chat.lastMessage(), mex);
     ASSERT_THROW(chat.readMessage(1), std::out_of_range);
-    ASSERT_THROW(chat.readMessage(2), std::out_of_range);
+    ASSERT_THROW(chat.readMessage(2), std::out_of_range);//messagio di un utente
+    //che non fa parte della chat
+
 }

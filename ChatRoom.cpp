@@ -33,6 +33,8 @@ bool ChatRoom::verifyUsersMsg(std::string sender, std::string receiver) {
 void ChatRoom::attachMessage(const Message &newMsg) {
     if (verifyUsersMsg(newMsg.getSender(), newMsg.getReceiver())) {
         messages.push_back(newMsg);
+    } else {
+        throw std::out_of_range("ERROR: user not found.");
     }
     if (firstUser_name == newMsg.getReceiver()) {
         this->notifyAll();
@@ -84,4 +86,12 @@ void ChatRoom::setSecondUserName(const std::string &secondUserName) {
 
 const Message &ChatRoom::lastMessage() const {
     return messages.back();
+}
+
+bool ChatRoom::isNotificationChat() const {
+    return notificationChat;
+}
+
+void ChatRoom::setNotificationChat(bool notificationChat) {
+    ChatRoom::notificationChat = notificationChat;
 }

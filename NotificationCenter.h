@@ -13,7 +13,7 @@ public:
 
     virtual ~NotificationCenter() = default;
 
-    explicit NotificationCenter(bool notif, std::shared_ptr<ChatRoom> sub);
+    explicit NotificationCenter(std::shared_ptr<ChatRoom> sub);
 
     virtual void attach() override;
 
@@ -25,10 +25,9 @@ public:
 
     bool isNotification() const;
 
-    void setNotification(bool notification);
 
 private:
-    bool notification;
+    bool notification = true;
     std::shared_ptr<ChatRoom> subject;
     std::vector<Message> mexAlreadyNotif;
 };
